@@ -4331,7 +4331,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803905376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20084cc54af68724c91b5484960dec0d, type: 3}
+  m_Script: {fileID: 11500000, guid: a6a00e6c28b974a798eb6d871ba3c88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoToHospital
   actionName: Action

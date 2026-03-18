@@ -1,8 +1,9 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GoToHospital : GAction
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override bool PrePerform()
     {
         return true;

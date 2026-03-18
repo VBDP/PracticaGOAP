@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,8 +10,7 @@ public abstract class GAction : MonoBehaviour
     public float cost = 1.0f;
     public GameObject target;
     public string targetTag;
-    public float duration = 0.0f;
-
+    public float duration = 0;
     public WorldState[] preConditions;
     public WorldState[] afterEffects;
     public NavMeshAgent agent;
@@ -19,6 +19,7 @@ public abstract class GAction : MonoBehaviour
     public Dictionary<string, int> effects;
 
     public WorldStates agentBeliefs;
+
     public bool running = false;
 
     public GAction()
@@ -26,23 +27,23 @@ public abstract class GAction : MonoBehaviour
         preconditions = new Dictionary<string, int>();
         effects = new Dictionary<string, int>();
     }
+
     public void Awake()
     {
         agent = this.gameObject.GetComponent<NavMeshAgent>();
+
         if (preConditions != null)
-        {
             foreach (WorldState w in preConditions)
             {
                 preconditions.Add(w.key, w.value);
             }
-        }
+
         if (afterEffects != null)
-        {
             foreach (WorldState w in afterEffects)
             {
                 effects.Add(w.key, w.value);
             }
-        }
+            
     }
 
     public bool IsAchievable()
@@ -62,16 +63,4 @@ public abstract class GAction : MonoBehaviour
 
     public abstract bool PrePerform();
     public abstract bool PostPerform();
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
