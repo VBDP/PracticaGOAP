@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using Mono.Cecil;
 
 public class subGoal
 {
@@ -27,7 +28,7 @@ public class GAgent : MonoBehaviour
     subGoal currentGoal;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         GAction[] acts = this.GetComponents<GAction>();
         foreach (GAction a in acts)
@@ -35,18 +36,37 @@ public class GAgent : MonoBehaviour
             actions.Add(a);
         }
     }
-
+    bool invoked = false;
+    void completeAction()
+    {
+        currentAction.running = false;
+        currentAction.PostPerform();
+        invoked = false;
+    }
     // Update is called once per frame
     void LateUpdate()
     {
-        if (planner == null || actionQueue == null || actionQueue.Count == 0)
+        if (currentAction != null && currentAction.running)
+        {
+            if (currentAction.agent.hasPath && currentAction.agent.remainingDistance < 1f)
+            {
+                if (!invoked)
+                {
+                    Invoke("CompleteAction", currentAction.duration);
+                    invoked = true;
+                }
+            }
+            return;
+        }
+
+        if (planner == null || actionQueue == null)
         {
             planner = new GPlanner();
-            WorldStates world = GWorld.Instance.GetWorld();
-            var orderedGoals = from entry in goals orderby entry.Value descending select entry;
-            foreach (KeyValuePair<subGoal, int> sg in orderedGoals)
+            var sortedGoals = from entry in goals orderby entry.Value descending select entry;
+
+            foreach (KeyValuePair<subGoal, int> sg in sortedGoals)
             {
-                actionQueue = planner.Plan(actions, sg.Key.sgoals, world);
+                actionQueue = planner.Plan(actions, sg.Key.sgoals, null);
                 if (actionQueue != null)
                 {
                     currentGoal = sg.Key;
@@ -55,27 +75,36 @@ public class GAgent : MonoBehaviour
             }
         }
 
-        if (currentAction != null && currentAction.running)
+        if(actionQueue != null && actionQueue.Count == 0)
         {
-            if (currentAction.PostPerform())
+            if (currentGoal.remove)
             {
-                currentAction.running = false;
+                goals.Remove(currentGoal);
             }
+            planner = null;
         }
-        else
+
+        if(actionQueue != null && actionQueue.Count > 0)
         {
-            if (actionQueue != null && actionQueue.Count > 0)
+            currentAction = actionQueue.Dequeue();
+            if (currentAction.PrePerform())
             {
-                currentAction = actionQueue.Dequeue();
-                if (currentAction.PrePerform())
+                if(currentAction.target == null && currentAction.targetTag != "")
+                {
+                    currentAction.target = GameObject.FindWithTag(currentAction.targetTag);
+                }
+
+                if(currentAction.target != null)
                 {
                     currentAction.running = true;
-                }
-                else
-                {
-                    currentAction.running = false;
+                    currentAction.agent.SetDestination(currentAction.target.transform.position);
                 }
             }
+            else
+            {
+                actionQueue = null;
+            }
         }
+
     }
 }

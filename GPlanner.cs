@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 
-public class Node{
+public class Node
+{
     public Node parent;
     public float cost;
     public Dictionary<string, int> state;
@@ -19,7 +21,7 @@ public class Node{
 }
 public class GPlanner
 {
-    public Queue<GAction> plan(List<GAction> actions, Dictionary<string, int> goal, WorldStates world)
+    public Queue<GAction> Plan(List<GAction> actions, Dictionary<string, int> goal, WorldStates world)
     {
         List<GAction> usableActions = new();
         foreach (GAction a in actions)
@@ -65,10 +67,69 @@ public class GPlanner
             queue.Enqueue(a);
         }
         Debug.Log("The Plan is: ");
-        foreach (GAction a in queue)        {
+        foreach (GAction a in queue)
+        {
             Debug.Log("Q: " + a.actionName);
-        }   
+        }
 
         return queue;
+    }
+
+    private bool BuildGraph(Node parent, List<Node> leaves, List<GAction> usuableActions, Dictionary<string, int> goal)
+    {
+        bool foundPath = false;
+        foreach (GAction action in usuableActions)
+        {
+            if (action.IsAchievableGiven(parent.state))
+            {
+                Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
+                foreach (KeyValuePair<string, int> eff in action.effects)
+                {
+                    if (!currentState.ContainsKey(eff.Key))
+                        currentState.Add(eff.Key, eff.Value);
+                }
+
+                Node node = new Node(parent, parent.cost + action.cost, currentState, action);
+
+                if (GoalAchieved(goal, currentState))
+                {
+                    leaves.Add(node);
+                    foundPath = true;
+                }
+                else
+                {
+                    List<GAction> subset = ActionSubset(usuableActions, action);
+                    bool found = BuildGraph(node, leaves, subset, goal);
+                    if (found)
+                    {
+                        foundPath = true;
+                    }
+                }
+
+            }
+        }
+        return foundPath;
+
+    }
+
+    private bool GoalAchieved(Dictionary<string,int> goal, Dictionary<string,int> state)
+    {
+        foreach(KeyValuePair<string,int> g in goal)
+        {
+            if(!state.ContainsKey(g.Key))
+            return false;
+        }
+        return true;
+    }
+
+    private List<GAction> ActionSubset(List<GAction> actions, GAction removeMe)
+    {
+        List<GAction> subset = new List<GAction>();
+        foreach(GAction a in actions)
+        {
+            if (!a.Equals(removeMe))
+                subset.Add(a);
+        } 
+        return subset;
     }
 }
