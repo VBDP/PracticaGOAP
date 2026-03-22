@@ -451,19 +451,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e2909d0bfa0ee4f9232c85e7154689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GetPatient
-  actionName: GetPatient
+  actionName: Action
   cost: 1
   target: {fileID: 0}
   targetTag: 
   duration: 0
-  preConditions:
-  - key: Waiting
-    value: 0
-  - key: FreeCubicle
-    value: 0
-  afterEffects:
-  - key: treatPatient
-    value: 0
+  preConditions: []
+  afterEffects: []
   agent: {fileID: 0}
   running: 0
 --- !u!114 &446715946
@@ -1484,6 +1478,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawn
   patientPrefab: {fileID: 6343899997627631865, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
   numPatients: 0
+  activePacients: 0
+  maxPatients: 8
 --- !u!4 &923327878
 Transform:
   m_ObjectHideFlags: 0
@@ -4061,7 +4057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a585da73603d75e49825b4de52e64cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  states: {fileID: 1592830989}
 --- !u!114 &1592830989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4309,63 +4304,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 69243ecc647674c34950ef6f96d3133f, type: 3}
   m_PrefabInstance: {fileID: 1687408942}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1884890800
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6343899997627631865, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_Name
-      value: Patient
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -22.76086
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -25.17725
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6356012820408010093, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3e145fde26d26034c82dcf003ed5998e, type: 3}
 --- !u!1 &1896877307
 GameObject:
   m_ObjectHideFlags: 0
@@ -5152,4 +5090,3 @@ SceneRoots:
   - {fileID: 1184113939}
   - {fileID: 742992260}
   - {fileID: 446715941}
-  - {fileID: 1884890800}
