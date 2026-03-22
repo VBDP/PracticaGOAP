@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public class Nurse : GAgent {
+public class Nurse : GAgent
+{
 
-    new void Start() {
+    new void Start()
+    {
 
         // Call base Start method
         base.Start();
@@ -18,12 +20,15 @@ public class Nurse : GAgent {
         Invoke("GetTired", Random.Range(10.0f, 20.0f));
     }
 
-    void GetTired() {
+    void GetTired()
+    {
 
-        beliefs.ModifyState("exhausted", 0);
-        //call the get tired method over and over at random times to make the nurse
-        //get tired again
-        Invoke("GetTired", Random.Range(0.0f, 20.0f));
+        if (!beliefs.HasState("exhausted"))
+        {
+            beliefs.ModifyState("exhausted", 0);
+        }
+
+        Invoke("GetTired", Random.Range(30.0f, 60.0f));
     }
 
 }

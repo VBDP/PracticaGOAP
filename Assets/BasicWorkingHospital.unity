@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375669398}
-  - component: {fileID: 375669397}
+  - component: {fileID: 375669399}
   m_Layer: 0
   m_Name: NurseSpawner
   m_TagString: Untagged
@@ -363,22 +363,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &375669397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 375669396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068577dad638eb8418390da35d86c8f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Spawn
-  patientPrefab: {fileID: 2618188073631541129, guid: 51e437be22296b340954bf6591a60065, type: 3}
-  numSpawned: 0
-  activeSpawneds: 0
-  maxSpawned: 4
 --- !u!4 &375669398
 Transform:
   m_ObjectHideFlags: 0
@@ -394,6 +378,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &375669399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375669396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d0f4f0c8d086445972bc18e2c25d89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnNurse
+  patientPrefab: {fileID: 2618188073631541129, guid: 51e437be22296b340954bf6591a60065, type: 3}
+  numSpawned: 0
+  activeSpawneds: 0
+  maxSpawned: 4
 --- !u!1 &469685279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3974,9 +3974,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1592830986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a585da73603d75e49825b4de52e64cdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d80fa707dfd61d47b3c026ec09a19f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  states: {fileID: 1592830989}
 --- !u!114 &1592830989
 MonoBehaviour:
   m_ObjectHideFlags: 0

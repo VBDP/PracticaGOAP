@@ -1,9 +1,9 @@
 ﻿public class GoHome : GAction {
-    public Spawn spawn;
+    public SpawnPacient spawn;
 
     void Start()
     {
-        spawn = FindFirstObjectByType<Spawn>();
+        spawn = FindFirstObjectByType<SpawnPacient>();
     }
     public override bool PrePerform() {
 

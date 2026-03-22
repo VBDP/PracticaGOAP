@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Spawn : MonoBehaviour
+public class SpawnNurse : MonoBehaviour
 {
 
     // Grab our prefab
@@ -8,7 +8,7 @@ public class Spawn : MonoBehaviour
     // Number of patients to spawn
     public int numSpawned;
     public int activeSpawneds;
-    public int maxSpawned = 8;
+    public int maxSpawned = 4;
 
     void Start()
     {
@@ -19,27 +19,18 @@ public class Spawn : MonoBehaviour
         //}
         // Call the SpawnPatient method for the first time
         activeSpawneds = 0;
-        Invoke("SpawnPatient", 5.0f);
+        Invoke("SpawnTheNurse", 5.0f);
     }
 
-    void SpawnPatient()
+    void SpawnTheNurse()
     {
         // Instantiate numPatients at the spawner
         if (activeSpawneds < maxSpawned)
         {
             Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
             // Invoke this method at random intervals
-            Invoke("SpawnPatient", Random.Range(2.0f, 10.0f));
+            Invoke("SpawnTheNurse", Random.Range(2.0f, 10.0f));
             activeSpawneds += 1;
-        }
-        else
-        {
-           Invoke("SpawnPatient", Random.Range(2.0f, 10.0f)); 
-        }      
-    }
-
-    public void RestarPaciente()
-    {
-        activeSpawneds -= 1;
+        }   
     }
 }
