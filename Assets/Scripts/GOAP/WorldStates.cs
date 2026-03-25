@@ -43,7 +43,7 @@ public class WorldStates {
             if (states[key] <= 0) {
 
                 // Call the RemoveState method
-                RemoveState(key);
+                states[key] = 0;
             }
         } else {
 
